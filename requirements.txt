@@ -1,0 +1,47 @@
+# ── AI Video Assistant ───────────────────────────────────────────────────────
+
+# ── Audio / Video acquisition ────────────────────────────────────────────────
+yt-dlp
+pydub
+ffmpeg-python
+audioop-lts
+
+# ── Speech-to-Text (local Whisper) ───────────────────────────────────────────
+faster-whisper
+nvidia-cublas-cu12
+nvidia-cudnn-cu12
+torch
+torchaudio
+
+# ── Translation (Hindi → English) ────────────────────────────────────────────
+deep-translator
+
+# ── LLM Orchestration — LangChain + Gemini + Groq ────────────────────────────
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+langchain-groq
+
+# ── RAG Pipeline ─────────────────────────────────────────────────────────────
+chromadb
+langchain-chroma
+sentence-transformers
+langchain-huggingface
+huggingface-hub
+tiktoken
+
+# ── Streamlit UI ─────────────────────────────────────────────────────────────
+streamlit
+streamlit-extras
+watchdog
+
+# ── PDF & TXT Export ─────────────────────────────────────────────────────────
+reportlab
+fpdf2
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+python-dotenv
+numpy
+tqdm
+requests
