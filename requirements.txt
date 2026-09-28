@@ -5,6 +5,7 @@ yt-dlp>=2026.08.19
 pydub
 ffmpeg-python
 audioop-lts
+deno
 
 # ── Speech-to-Text (local Whisper) ───────────────────────────────────────────
 faster-whisper
