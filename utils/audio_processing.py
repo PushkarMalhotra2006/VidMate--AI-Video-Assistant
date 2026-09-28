@@ -17,6 +17,11 @@ def download_yt_audio(url : str) -> str:
                 "preferredquality": "192",
             }
         ],
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["mweb"]
+            }
+        },
         "force_ipv4": True,
         "quiet": False,
         "verbose": True
