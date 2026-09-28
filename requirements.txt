@@ -12,6 +12,7 @@ nvidia-cublas-cu12
 nvidia-cudnn-cu12
 torch
 torchaudio
+torchvision
 
 # ── Translation (Hindi → English) ────────────────────────────────────────────
 deep-translator

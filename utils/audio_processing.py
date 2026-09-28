@@ -17,6 +17,11 @@ def download_yt_audio(url : str) -> str:
                 "preferredquality": "192",
             }
         ],
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android']
+            }
+        },
         "quiet": True,
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
