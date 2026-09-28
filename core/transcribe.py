@@ -27,8 +27,6 @@ def transcribe_chunk(chunk_path : str,lang:str = "english") -> str:
 
     segments,info = model.transcribe(chunk_path,task = task,language=lang_code)
 
-    print("segemnts came")
-
     result = "".join([segment.text for segment in segments])
 
     return result

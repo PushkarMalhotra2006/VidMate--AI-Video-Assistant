@@ -8,7 +8,7 @@ from core.rag_engine import ask_question
 
 # Page config
 st.set_page_config(
-    page_title="VidSense",
+    page_title="VidMate",
     page_icon="🎞️",
     layout="wide"
 )
@@ -122,8 +122,8 @@ if 'last_source' not in st.session_state:
 # Hero card
 st.markdown("""
 <div class="hero-card">
-    <h1 class="hero-title">🎞️ VidSense</h1>
-    <p class="hero-subtitle">Video Assistant to generate summary, notes or ask doubts from Youtube Videos or any Video</p>
+    <h1 class="hero-title">🎞️ VidMate</h1>
+    <p class="hero-subtitle">AI Video Assistant to generate summary, notes or ask doubts from Youtube Videos or any Video</p>
 </div>
 """, unsafe_allow_html=True)
 
