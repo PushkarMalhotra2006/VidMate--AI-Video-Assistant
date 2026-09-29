@@ -76,10 +76,10 @@ def download_yt_audio(url: str) -> str:
         # Do NOT force android/mweb/tv/etc.
         "extractor_args": {
             "youtubepot-bgutilscript": {
-                "server_home": os.path.join(
+                "server_home": [os.path.join(
                     BGUTIL_DIR,
                     "server"
-                )
+                )]
             }
         },
 
