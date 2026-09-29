@@ -1,7 +1,9 @@
 # ── AI Video Assistant ───────────────────────────────────────────────────────
 
 # ── Audio / Video acquisition ────────────────────────────────────────────────
-yt-dlp>=2026.08.19
+yt-dlp[default]>=2026.08.19
+yt-dlp-ejs
+bgutil-ytdlp-pot-provider
 pydub
 ffmpeg-python
 audioop-lts

@@ -5,11 +5,65 @@ from pydub import AudioSegment
 DOWNLOAD_DIR = 'downloads'
 os.makedirs(DOWNLOAD_DIR,exist_ok = True)
 
-def download_yt_audio(url : str) -> str:
-    output_path = os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s")
+import os
+import subprocess
+import yt_dlp
+
+BGUTIL_DIR = os.path.join("/tmp", "bgutil-ytdlp-pot-provider")
+
+
+def setup_bgutil():
+    """Download and prepare bgutil PO-token provider on Streamlit Cloud."""
+
+    if os.path.exists(os.path.join(BGUTIL_DIR, "server")):
+        return
+
+    print("Setting up bgutil PO-token provider...")
+
+    # Clone the exact current bgutil release
+    subprocess.run(
+        [
+            "git",
+            "clone",
+            "--depth", "1",
+            "--branch", "2.0.0",
+            "https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git",
+            BGUTIL_DIR,
+        ],
+        check=True,
+    )
+
+    server_dir = os.path.join(BGUTIL_DIR, "server")
+
+    # Install the server dependencies using Deno
+    subprocess.run(
+        [
+            "deno",
+            "install",
+            "--allow-scripts=npm:canvas",
+            "--frozen",
+        ],
+        cwd=server_dir,
+        check=True,
+    )
+
+    print("bgutil PO-token provider ready.")
+
+
+def download_yt_audio(url: str) -> str:
+
+    setup_bgutil()
+
+    output_path = os.path.join(
+        DOWNLOAD_DIR,
+        "%(title)s.%(ext)s"
+    )
+
     ydl_opts = {
         "format": "bestaudio/best",
+
         "outtmpl": output_path,
+
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
@@ -17,18 +71,45 @@ def download_yt_audio(url : str) -> str:
                 "preferredquality": "192",
             }
         ],
+
+        # Let yt-dlp use its normal YouTube logic.
+        # Do NOT force android/mweb/tv/etc.
         "extractor_args": {
-            "youtube": {
-                "player_client": ["mweb"]
+            "youtubepot-bgutilscript": {
+                "server_home": os.path.join(
+                    BGUTIL_DIR,
+                    "server"
+                )
             }
         },
-        "force_ipv4": True,
+
+        # EJS JavaScript challenge solver
+        "js_runtimes": {
+            "deno": {}
+        },
+
+        "remote_components": [
+            "ejs:github"
+        ],
+
         "quiet": False,
-        "verbose": True
+        "verbose": True,
     }
+
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filename = ydl.prepare_filename(info).replace(".webm", ".wav").replace(".m4a", ".wav")
+
+        info = ydl.extract_info(
+            url,
+            download=True
+        )
+
+        base_name = ydl.prepare_filename(info)
+
+        filename = (
+            os.path.splitext(base_name)[0]
+            + ".wav"
+        )
+
     return filename
 
 def convert_to_wav(input_path: str) -> str:
